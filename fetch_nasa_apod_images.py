@@ -7,7 +7,7 @@ from files_helper import save_image, get_extension_by_url
 def fetch_nasa_apod_images():
     payload = {
         "api_key": settings.NASA_API_KEY,
-        "count": settings.NASA_PIC_COUNT
+        "count": settings.MAX_NASA_APOD_PIC_COUNT
     }
     response = requests.get(settings.NASA_APOD_API, params=payload)
     response.raise_for_status()

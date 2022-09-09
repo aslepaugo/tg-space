@@ -18,7 +18,7 @@ def fetch_nasa_epic_images():
         image_date = datetime.fromisoformat(image_date)
         image_url = f"{settings.NASA_EPIC_ARCHIVE_API}/{image_date.year}/{image_date.month:02d}/{image_date.day:02d}/png/{image_name}.png"
         save_image(image_url, f"./images/nasa_epic_{record_number}.png", params=payload)
-        if record_number == settings.MAX_EPIC_PIC_COUNT - 1:
+        if record_number == settings.MAX_NASA_EPIC_PIC_COUNT - 1:
             break
 
 
