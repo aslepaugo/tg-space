@@ -3,6 +3,7 @@ import requests
 import settings
 
 from files_helper import save_image
+from pathlib import Path
 
 
 def fetch_nasa_epic_images():
@@ -11,7 +12,7 @@ def fetch_nasa_epic_images():
     }
     response = requests.get(settings.NASA_EPIC_API, params=payload)
     response.raise_for_status()
-
+    Path("./images").mkdir(exist_ok=True)
     for record_number, record in enumerate(response.json()):
         image_name = record['image']
         image_date = record['date']

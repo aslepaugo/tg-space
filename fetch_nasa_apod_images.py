@@ -2,6 +2,7 @@ import requests
 import settings
 
 from files_helper import save_image, get_extension_by_url
+from pathlib import Path
 
 
 def fetch_nasa_apod_images():
@@ -11,6 +12,7 @@ def fetch_nasa_apod_images():
     }
     response = requests.get(settings.NASA_APOD_API, params=payload)
     response.raise_for_status()
+    Path("./images").mkdir(exist_ok=True)
     for record_number, record in enumerate(response.json()):
         picture_url = record['url']
         picture_extension = get_extension_by_url(picture_url)

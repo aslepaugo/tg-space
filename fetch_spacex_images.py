@@ -3,6 +3,7 @@ import requests
 import settings
 
 from files_helper import save_image
+from pathlib import Path
 
 
 def fetch_spacex_images(launch_id=None):
@@ -12,6 +13,7 @@ def fetch_spacex_images(launch_id=None):
         response = requests.get(f"{settings.SPACEX_LAUNCH_API}/{launch_id}")
     response.raise_for_status()
     image_urls = response.json()['links']['flickr']['original']
+    Path("./images").mkdir(exist_ok=True)
     for picrure_number, picture_url in enumerate(image_urls):
         save_image(picture_url, f"./images/spacex_{picrure_number}.jpg")
 
