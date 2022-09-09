@@ -99,7 +99,13 @@ python download_from_all_sources.py
 Script periodicall uploads photos from `images` directory into Telegram Channel.
 
 `--hours` is used to identify how often photos should be uploaded (default 4 hours)
+`--photo` is used to upload 1 specific photo from `images` folder
+`--infinite` is used to run infinitely with delay defined in `--hours` (default 4 hours)
 
 ```bash
-python load_images_into_tg_channel.py --hours 6
+python load_images_into_tg_channel.py --infinite True --hours 6
+```
+
+```bash
+python load_images_into_tg_channel.py --photo spacex_4.jpg
 ```
