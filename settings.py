@@ -13,3 +13,6 @@ MAX_EPIC_PIC_COUNT = 2
 NASA_PIC_COUNT = 2
 
 NASA_API_KEY = os.getenv("NASA_API_KEY")
+
+TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN")
+CHAT_ID = '@dvmn_space_community_test'
