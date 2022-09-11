@@ -6,11 +6,8 @@ from files_helper import save_image
 from pathlib import Path
 
 
-def fetch_spacex_images(launch_id=None):
-    if launch_id is None:
-        response = requests.get(f"{settings.SPACEX_LAUNCH_API}/latest")
-    else:
-        response = requests.get(f"{settings.SPACEX_LAUNCH_API}/{launch_id}")
+def fetch_spacex_images(launch_id='latest'):
+    response = requests.get(f"{settings.SPACEX_LAUNCH_API}/{launch_id}")
     response.raise_for_status()
     image_urls = response.json()['links']['flickr']['original']
     Path("./images").mkdir(exist_ok=True)
