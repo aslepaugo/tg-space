@@ -5,10 +5,12 @@ import settings
 import telegram
 import time
 
+from pathlib import Path
+
 
 def get_images():
     images = []
-    for _, _, files in os.walk('./images/'):
+    for _, _, files in os.walk(Path.cwd() / 'images'):
         for file in files:
             images.append(file)
     random.shuffle(images)
@@ -25,14 +27,17 @@ if __name__ == "__main__":
     bot = telegram.Bot(token=settings.TG_BOT_TOKEN)
 
     if args.photo:
-        bot.send_document(chat_id=settings.CHAT_ID, document=open(f'./images/{args.photo}', 'rb'))
+        with open(Path.cwd() / 'images' / args.photo, 'rb') as picture:
+            bot.send_document(chat_id=settings.CHAT_ID, document=picture)
     elif not args.infinite:
-        bot.send_document(chat_id=settings.CHAT_ID, document=open(f'./images/{get_images()[0]}', 'rb'))
+        with open(Path.cwd() / 'images' / get_images()[0], 'rb') as picture:
+            bot.send_document(chat_id=settings.CHAT_ID, document=picture)
 
     while True and args.infinite:
         for image in get_images():
-            image_size = os.path.getsize(f'./images/{image}')
+            image_size = os.path.getsize(Path.cwd() / 'images' / image)
             if image_size > settings.IMAGE_SIZE_LIMIT:
                 continue
-            bot.send_document(chat_id=settings.CHAT_ID, document=open(f'./images/{image}', 'rb'))
+            with open(Path.cwd() / 'images' / image, 'rb') as picture:
+                bot.send_document(chat_id=settings.CHAT_ID, document=picture)
             time.sleep(delay_seconds)
